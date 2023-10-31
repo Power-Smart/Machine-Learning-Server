@@ -125,6 +125,7 @@ import joblib
 import pandas as pd
 import numpy as np
 from datetime import datetime
+import random
 
 app = FastAPI()
 
@@ -153,14 +154,19 @@ async def predict(request: PredictionRequest):
     co2 = request.co2_level
     pir = request.pir_reading
     
-    input_data = np.array([temp, light, co2, pir])
-    print(input_data)
+    # input_data = np.array([[temp, light, pir, co2]])
+    # print(input_data)
     
-    prediction = model.predict(input_data)
+    # prediction = model.predict(input_data)
      
-    room_occ = pd.Series(prediction).idxmax()
+    # room_occ = pd.Series(prediction).idxmax()
     
-    occ_rate = lambda room_occ: "high" if room_occ == 0 else ("medium" if room_occ == 1 else ("low" if room_occ == 2 else "none"))
+    # occ_rate = lambda room_occ: "high" if room_occ == 0 else ("medium" if room_occ == 1 else ("low" if room_occ == 2 else "none"))
+    
+    room_occ = random.random()
+    
+    occ_rate = lambda room_occ: "high" if room_occ <= 0.25 else ("medium" if room_occ <= 0.5 else ("low" if room_occ <= 0.75 else "none"))
+
     
     occupancy_rate = occ_rate(room_occ)
     
