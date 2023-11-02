@@ -170,6 +170,8 @@ async def predict(request: PredictionRequest):
     
     occupancy_rate = occ_rate(room_occ)
     
+    print(occupancy_rate)
+    
     # occupancy_rate = "none" if pir == 0 else ("low" if co2 < 200 else ("medium" if co2 < 500 else "high"))
     
     return {
