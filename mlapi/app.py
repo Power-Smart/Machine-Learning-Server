@@ -154,23 +154,23 @@ async def predict(request: PredictionRequest):
     co2 = request.co2_level
     pir = request.pir_reading
     
-    input_data = np.array([[temp, light, pir, co2]]).reshape(1, -1)
+    input_data = np.array([[temp, light, pir, co2]])
     print(input_data)
     
-    # prediction = model.predict(input_data)
+    prediction = model.predict(input_data)
      
-    # room_occ = pd.Series(prediction).idxmax()
+    room_occ = pd.Series(prediction[0]).idxmax()
     
-    # occ_rate = lambda room_occ: "high" if room_occ == 0 else ("medium" if room_occ == 1 else ("low" if room_occ == 2 else "none"))
+    occ_rate = lambda room_occ: "high" if room_occ == 0 else ("medium" if room_occ == 1 else ("low" if room_occ == 2 else "none"))
     
-    # room_occ = random.random()
+    room_occ = random.random()
     
-    # occ_rate = lambda room_occ: "high" if room_occ <= 0.25 else ("medium" if room_occ <= 0.5 else ("low" if room_occ <= 0.75 else "none"))
+    occ_rate = lambda room_occ: "high" if room_occ <= 0.25 else ("medium" if room_occ <= 0.5 else ("low" if room_occ <= 0.75 else "none"))
 
     
-    # occupancy_rate = occ_rate(room_occ)
+    occupancy_rate = occ_rate(room_occ)
     
-    occupancy_rate = "none" if pir == 0 else ("low" if co2 < 200 else ("medium" if co2 < 500 else "high"))
+    # occupancy_rate = "none" if pir == 0 else ("low" if co2 < 200 else ("medium" if co2 < 500 else "high"))
     
     return {
         "sensor_id": request.sensor_unit_id,
